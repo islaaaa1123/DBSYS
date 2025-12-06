@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MCC Dashboard</title>
+
+<!-- SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root {
+    --mcc-red: #b21f2d;
+    --mcc-dark-red: #9d1a26;
+    --mcc-bg: #f5f5f5;
+    --mcc-light-gray: #e0e0e0;
+    --calendar-header: #f8f8f8;
+    --calendar-day: #ffffff;
+    --calendar-today: #ffecec;
+    --calendar-event: #f0f7ff;
+    --calendar-border: #e0e0e0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: var(--mcc-bg);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--mcc-red);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    display: none;
+  }
+
+  header img {
+    height: 30px;
+    vertical-align: middle;
+  }
+
+  header h1 {
+    font-size: 1rem;
+    margin: 0;
+    vertical-align: middle;
+    display: inline;
+  }
+
+  /* Left Side Tabs */
+  .tabs-container {
+    width: 200px;
+    background: var(--mcc-red);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .tab {
+    padding: 1rem;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tab i {
+    width: 20px;
+    text-align: center;
+  }
+
+  .tab.active {
+    background: var(--mcc-dark-red);
+    border-left: 4px solid white;
+  }
+
+  .tab:hover {
+    background: var(--mcc-dark-red);
+  }
+
+  /* Main Content */
+  .main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .content {
+    margin: 1rem;
+    background: white;
+    border: 1px solid var(--mcc-red);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    margin-top: 0;
+    color: var(--mcc-red);
+    font-size: 1.1rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  label {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  select, input[type="number"], input[type="text"], input[type="date"], input[type="password"], input[type="email"], button, textarea {
+    margin-top: 0.2rem;
+    padding: 0.4rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button {
+    background: var(--mcc-red);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    transition: background 0.3s;
+    border: none;
+  }
+
+  button:hover {
+    background: var(--mcc-dark-red);
+  }
+
+  button.secondary {
+    background: var(--mcc-light-gray);
+    color: #333;
+  }
+
+  button.secondary:hover {
+    background: #d0d0d0;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Calendar Grid Styles */
+  .calendar-grid {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  .calendar-grid th {
+    background: var(--mcc-red);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .calendar-grid td {
+    border: 1px solid var(--calendar-border);
+    height: 40px;
+    vertical-align: top;
+    padding: 0.2rem;
+    font-size: 0.7rem;
+    position: relative;
+  }
+
+  .calendar-day-number {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-weight: bold;
+  }
+
+  .calendar-day.today {
+    background-color: var(--calendar-today);
+  }
+
+  .calendar-day.other-month {
+    background-color: var(--mcc-bg);
+    color: #999;
+  }
+
+  .calendar-event {
+    background-color: var(--calendar-event);
+    border-radius: 3px;
+    padding: 1px 3px;
+    margin-top: 15px;
+    font-size: 0.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-left: 3px solid var(--mcc-red);
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .calendar-title {
+    font-weight: bold;
+    color: var(--mcc-red);
+  }
+
+  .calendar-nav button {
+    background: none;
+    border: none;
+    color: var(--mcc-red);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 0.5rem;
+  }
+
+  /* To-Do List Styles */
+  .todo-container {
+    margin-top: 1rem;
+  }
+
+  .todo-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.3rem 0;
+    background: #f9f9f9;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .todo-item:hover {
+    background: #f0f0f0;
+  }
+
+  .todo-checkbox {
+    margin-right: 0.5rem;
+  }
+
+  .todo-text {
+    flex-grow: 1;
+  }
+
+  .todo-text.completed {
+    text-decoration: line-through;
+    color: #777;
+  }
+
+  .todo-delete {
+    color: var(--mcc-red);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem;
+    margin-left: 0.5rem;
+  }
+
+  /* Profile Styles */
+  .profile-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--mcc-red);
+  }
+
+  .profile-info {
+    margin-top: 1rem;
+  }
+
+  .info-row {
+    display: flex;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-label {
+    font-weight: bold;
+    width: 100px;
+  }
+
+  .info-value {
+    flex-grow: 1;
+  }
+
+  /* Settings Styles */
+  .settings-option {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .settings-option:last-child {
+    border-bottom: none;
+  }
+
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-left: 10px;
+  }
+
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+  }
+
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .toggle-slider {
+    background-color: var(--mcc-red);
+  }
+
+  input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .priority-select {
+    margin-top: 0.5rem;
+    padding: 0.3rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .priority-high {
+    border-left: 4px solid #e74c3c;
+  }
+
+  .priority-medium {
+    border-left: 4px solid #f39c12;
+  }
+
+  .priority-low {
+    border-left: 4px solid #2ecc71;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+    
+    .tabs-container {
+      width: 100%;
+      order: 1;
+    }
+    
+    .tabs {
+      flex-direction: row;
+      overflow-x: auto;
+    }
+    
+    .tab {
+      padding: 0.75rem;
+      white-space: nowrap;
+      border-left: none;
+      border-bottom: 4px solid transparent;
+    }
+    
+    .tab.active {
+      border-left: none;
+      border-bottom: 4px solid white;
+    }
+    
+    header {
+      display: block;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Mabalacat_City_College_logo.png/1200px-Mabalacat_City_College_logo.png" alt="MCC Logo" />
+  <h1>MCC Dashboard</h1>
+</header>
+
+<div class="tabs-container">
+  <div class="tabs">
+    <div class="tab active" data-tab="calendar">
+      <i class="fas fa-calendar"></i> Calendar
+    </div>
+    <div class="tab" data-tab="todo">
+      <i class="fas fa-tasks"></i> To-Do
+    </div>
+    <div class="tab" data-tab="profile">
+      <i class="fas fa-user"></i> Profile
+    </div>
+    <div class="tab" data-tab="settings">
+      <i class="fas fa-cog"></i> Settings
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="content">
+    <!-- Calendar -->
+    <div id="calendar" class="section fade-in">
+      <h2>Calendar</h2>
+      <div class="calendar-actions">
+        <button id="add-event"><i class="fas fa-plus"></i> Add Event</button>
+      </div>
+
+      <div class="calendar-header">
+        <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+        <h3 class="calendar-title" id="calendar-month-year">June 2023</h3>
+        <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+      </div>
+
+      <div id="calendar-container">
+        <table class="calendar-grid">
+          <thead>
+            <tr>
+              <th>Sun</th>
+              <th>Mon</th>
+              <th>Tue</th>
+              <th>Wed</th>
+              <th>Thu</th>
+              <th>Fri</th>
+              <th>Sat</th>
+            </tr>
+          </thead>
+          <tbody id="calendar-body">
+            <!-- Calendar days will be generated here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- To-Do List -->
+    <div id="todo" class="section hidden fade-in">
+      <h2>To-Do List</h2>
+      <div class="form-group">
+        <input type="text" id="new-todo" placeholder="Enter new task">
+        <select id="todo-priority" class="priority-select">
+          <option value="low">Low Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="high">High Priority</option>
+        </select>
+        <button id="add-todo"><i class="fas fa-plus"></i> Add Task</button>
+      </div>
+      <div class="todo-container" id="todo-list"></div>
+    </div>
+
+    <!-- Profile -->
+    <div id="profile" class="section hidden fade-in">
+      <div class="profile-header">
+        <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic" id="profile-picture">
+        <h2 id="profile-name">John Doe</h2>
+        <p id="profile-role">Student</p>
+      </div>
+      
+      <div class="profile-info">
+        <div class="info-row">
+          <span class="info-label">Student ID:</span>
+          <span class="info-value" id="profile-id">2023-12345</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Course:</span>
+          <span class="info-value" id="profile-course">BS Computer Science</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span class="info-value" id="profile-email">john.doe@mcc.edu.ph</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Contact:</span>
+          <span class="info-value" id="profile-contact">+63 912 345 6789</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Address:</span>
+          <span class="info-value" id="profile-address">Mabalacat City, Pampanga</span>
+        </div>
+      </div>
+      
+      <button id="edit-profile" class="secondary"><i class="fas fa-edit"></i> Edit Profile</button>
+    </div>
+
+    <!-- Settings -->
+    <div id="settings" class="section hidden fade-in">
+      <h2>Settings</h2>
+      
+      <div class="settings-option">
+        <h3>Appearance</h3>
+        <label>
+          Dark Mode
+          <label class="toggle-switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="toggle-slider"></span>
+          </label>
+        </label>
+      </div>
+      
+      <div class="settings-option">
+        <h3>Notifications</h3>
+        <label>
+          Enable Notifications
+          <label class="toggle-switch">
+            <input type="checkbox" id="notifications-toggle" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </label>
+      </div>
+      
+      <div class="settings-option">
+        <h3>Account</h3>
+        <button id="change-password" class="secondary"><i class="fas fa-key"></i> Change Password</button>
+        <button id="logout" class="secondary"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+      
+      <div class="settings-option">
+        <h3>About</h3>
+        <p>MCC Dashboard v1.0.0</p>
+        <p>© 2023 Mabalacat City College</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Tabs
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.section');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      sections.forEach(section => section.classList.add('hidden'));
+      document.getElementById(tab.dataset.tab).classList.remove('hidden');
+      
+      // Scroll to top when changing tabs
+      document.querySelector('.main-content').scrollTo(0, 0);
+    });
+  });
+
+  // Calendar Grid Functionality
+  let currentMonth = new Date().getMonth();
+  let currentYear = new Date().getFullYear();
+
+  function generateCalendar(month, year) {
+    const calendarBody = document.getElementById('calendar-body');
+    calendarBody.innerHTML = '';
+    
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDay = firstDay.getDay();
+    
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"];
+    
+    document.getElementById('calendar-month-year').textContent = 
+      `${monthNames[month]} ${year}`;
+    
+    let date = 1;
+    let today = new Date();
+    
+    // Create calendar rows
+    for (let i = 0; i < 6; i++) {
+      // Stop if we've gone past the last day of the month
+      if (date > daysInMonth) break;
+      
+      const row = document.createElement('tr');
+      
+      // Create cells for each day of the week
+      for (let j = 0; j < 7; j++) {
+        const cell = document.createElement('td');
+        
+        if (i === 0 && j < startingDay) {
+          // Days from previous month
+          const prevMonthLastDay = new Date(year, month, 0).getDate();
+          const prevDate = prevMonthLastDay - (startingDay - j - 1);
+          
+          cell.innerHTML = `<div class="calendar-day-number">${prevDate}</div>`;
+          cell.classList.add('other-month');
+        } else if (date > daysInMonth) {
+          // Days from next month
+          const nextDate = date - daysInMonth;
+          cell.innerHTML = `<div class="calendar-day-number">${nextDate}</div>`;
+          cell.classList.add('other-month');
+          date++;
+        } else {
+          // Current month days
+          cell.innerHTML = `<div class="calendar-day-number">${date}</div>`;
+          cell.classList.add('calendar-day');
+          
+          // Highlight today
+          if (date === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+            cell.classList.add('today');
+          }
+          
+          // Add events if any exist for this date
+          const dateEvents = events.filter(event => {
+            const eventDate = new Date(event.date);
+            return eventDate.getDate() === date && 
+                   eventDate.getMonth() === month && 
+                   eventDate.getFullYear() === year;
+          });
+          
+          dateEvents.forEach(event => {
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'calendar-event';
+            eventDiv.textContent = event.title;
+            eventDiv.title = event.title;
+            cell.appendChild(eventDiv);
+          });
+          
+          date++;
+        }
+        
+        row.appendChild(cell);
+      }
+      
+      calendarBody.appendChild(row);
+    }
+  }
+
+  // Sample events data
+  let events = [
+    { title: 'WebTech Project', date: `${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-10` },
+    { title: 'PE Class', date: `${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-12` },
+    { title: 'OOP Assignment', date: `${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-15` }
+  ];
+
+  // Navigation
+  document.getElementById('prev-month').addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    generateCalendar(currentMonth, currentYear);
+  });
+
+  document.getElementById('next-month').addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    generateCalendar(currentMonth, currentYear);
+  });
+
+  // Add Event
+  document.getElementById('add-event').addEventListener('click', () => {
+    Swal.fire({
+      title: 'Add Event',
+      html: `
+        <input type="text" id="event-title" class="swal2-input" placeholder="Event Title">
+        <input type="date" id="event-date" class="swal2-input" value="${currentYear}-${(currentMonth+1).toString().padStart(2, '0')}-01">
+      `,
+      confirmButtonText: 'Add',
+      focusConfirm: false,
+      preConfirm: () => {
+        const title = document.getElementById('event-title').value;
+        const date = document.getElementById('event-date').value;
+        if (!title || !date) {
+          Swal.showValidationMessage('Please enter both title and date');
+          return false;
+        }
+        return { title, date };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const { title, date } = result.value;
+        events.push({ title, date });
+        generateCalendar(currentMonth, currentYear);
+        Swal.fire('Added!', `Event "${title}" on ${date} added.`, 'success');
+      }
+    });
+  });
+
+  // Initialize calendar
+  generateCalendar(currentMonth, currentYear);
+
+  // Enhanced To-Do List Functionality
+  let todos = JSON.parse(localStorage.getItem('mcc-todos')) || [];
+  
+  function renderTodos() {
+    const todoList = document.getElementById('todo-list');
+    todoList.innerHTML = '';
+    
+    todos.forEach((todo, index) => {
+      const todoItem = document.createElement('div');
+      todoItem.className = `todo-item priority-${todo.priority}`;
+      
+      todoItem.innerHTML = `
+        <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-index="${index}">
+        <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
+        <button class="todo-delete" data-index="${index}"><i class="fas fa-trash"></i></button>
+      `;
+      
+      todoList.appendChild(todoItem);
+    });
+    
+    // Add event listeners
+    document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const index = parseInt(this.dataset.index);
+        todos[index].completed = this.checked;
+        saveTodos();
+        renderTodos();
+      });
+    });
+    
+    document.querySelectorAll('.todo-delete').forEach(button => {
+      button.addEventListener('click', function() {
+        const index = parseInt(this.dataset.index);
+        todos.splice(index, 1);
+        saveTodos();
+        renderTodos();
+      });
+    });
+  }
+  
+  function saveTodos() {
+    localStorage.setItem('mcc-todos', JSON.stringify(todos));
+  }
+  
+  document.getElementById('add-todo').addEventListener('click', () => {
+    const taskInput = document.getElementById('new-todo');
+    const task = taskInput.value.trim();
+    const priority = document.getElementById('todo-priority').value;
+    
+    if (task) {
+      todos.push({
+        text: task,
+        priority: priority,
+        completed: false,
+        createdAt: new Date().toISOString()
+      });
+      
+      saveTodos();
+      renderTodos();
+      taskInput.value = '';
+    }
+  });
+  
+  // Load todos on page load
+  renderTodos();
+
+  // Profile Edit Functionality
+  document.getElementById('edit-profile').addEventListener('click', () => {
+    Swal.fire({
+      title: 'Edit Profile',
+      html: `
+        <div class="form-group">
+          <label for="edit-name">Full Name</label>
+          <input type="text" id="edit-name" class="swal2-input" value="${document.getElementById('profile-name').textContent}">
+        </div>
+        <div class="form-group">
+          <label for="edit-email">Email</label>
+          <input type="email" id="edit-email" class="swal2-input" value="${document.getElementById('profile-email').textContent}">
+        </div>
+        <div class="form-group">
+          <label for="edit-contact">Contact Number</label>
+          <input type="text" id="edit-contact" class="swal2-input" value="${document.getElementById('profile-contact').textContent}">
+        </div>
+        <div class="form-group">
+          <label for="edit-address">Address</label>
+          <textarea id="edit-address" class="swal2-input">${document.getElementById('profile-address').textContent}</textarea>
+        </div>
+      `,
+      confirmButtonText: 'Save Changes',
+      showCancelButton: true,
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          name: document.getElementById('edit-name').value,
+          email: document.getElementById('edit-email').value,
+          contact: document.getElementById('edit-contact').value,
+          address: document.getElementById('edit-address').value
+        };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const { name, email, contact, address } = result.value;
+        document.getElementById('profile-name').textContent = name;
+        document.getElementById('profile-email').textContent = email;
+        document.getElementById('profile-contact').textContent = contact;
+        document.getElementById('profile-address').textContent = address;
+        
+        Swal.fire('Updated!', 'Your profile has been updated.', 'success');
+      }
+    });
+  });
+
+  // Settings Functionality
+  document.getElementById('change-password').addEventListener('click', () => {
+    Swal.fire({
+      title: 'Change Password',
+      html: `
+        <input type="password" id="current-password" class="swal2-input" placeholder="Current Password">
+        <input type="password" id="new-password" class="swal2-input" placeholder="New Password">
+        <input type="password" id="confirm-password" class="swal2-input" placeholder="Confirm New Password">
+      `,
+      confirmButtonText: 'Change Password',
+      focusConfirm: false,
+      preConfirm: () => {
+        const current = document.getElementById('current-password').value;
+        const newPass = document.getElementById('new-password').value;
+        const confirmPass = document.getElementById('confirm-password').value;
+        
+        if (!current || !newPass || !confirmPass) {
+          Swal.showValidationMessage('Please fill all fields');
+          return false;
+        }
+        
+        if (newPass !== confirmPass) {
+          Swal.showValidationMessage('New passwords do not match');
+          return false;
+        }
+        
+        if (newPass.length < 6) {
+          Swal.showValidationMessage('Password must be at least 6 characters');
+          return false;
+        }
+        
+        return { current, newPass };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Success!', 'Your password has been changed.', 'success');
+      }
+    });
+  });
+
+  document.getElementById('logout').addEventListener('click', () => {
+    Swal.fire({
+      title: 'Logout',
+      text: 'Are you sure you want to logout?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Logged Out', 'You have been successfully logged out.', 'success');
+        // Here you would typically redirect to login page
+      }
+    });
+  });
+
+  // Dark mode toggle
+  document.getElementById('dark-mode-toggle').addEventListener('change', function() {
+    document.body.classList.toggle('dark-mode', this.checked);
+    localStorage.setItem('darkMode', this.checked);
+  });
+
+  // Load dark mode preference
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.getElementById('dark-mode-toggle').checked = true;
+    document.body.classList.add('dark-mode');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<html>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendace</title>
+    <head>
+        <link rel="stylesheet" href="style.sub.css">
+    </head>
+    <body>
+        <div class="header">
+            <img src="image/mcclogo.png">
+            <h1>MABALACAT CITY COLLEGE</h1>
+        </div>
+
+        <div class="sidebar">
+            <div class="top">
+                <a href="homepage.html"  class="active">
+                    <img src="image/home.png" class="icons">
+                    Home
+                </a>
+                <a href="calendar.html">
+                    <img src="image/calendar.png" class="icons">
+                    Calendar
+                </a>
+                <a href="to-do-list.html">
+                    <img src="image/to-do-list.png" class="icons">
+                    To-do
+                </a>
+            </div>
+
+            <div class="bottom">
+                <div class="profile-wrapper">
+                    <a href="profile.html">
+                        <img src="image/pfp.png" class="pfp">
+                    </a>
+                    <div class="profile-dropdown">
+                        <a href="loginpage.html">Add another account</a>
+                        <a href="loginpage.html">Sign Out</a>
+                    </div>
+                </div>
+                <a href="settings.html">
+                    <img src="image/settings.png"  class="setting">
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <h5>
+                <a href="homepage.html">Home</a> ❯ <a href="sub1-main.html">IT21WEBTECH BSIT-1A</a> ❯ <b>Laboratory - Week 5</b>
+            </h5>
+        </div>
+
+        <div class="container">
+            <div class="box" id="present">
+                <img src="image/attendance.jpeg" class="box-img">
+                <div class="info">
+                    <div class="count">3</div>
+                    <div class="label">Present</div>
+                </div>
+            </div>
+
+            <div class="box" id="absent">
+                <img src="image/absent.jpeg" class="box-img">
+                <div class="info">
+                    <div class="count">1</div>
+                    <div class="label">Absent</div>
+                </div>
+            </div>
+
+            <div class="box" id="late">
+                <img src="image/late.jpeg" class="box-img">
+                <div class="info">
+                    <div class="count">1</div>
+                    <div class="label">Late</div>
+                </div>
+            </div>
+
+            <a href="#popup" class="open-btn"><img src="image/qr.png"></a>
+
+            <div id="popup" class="popup-overlay">
+                <div class="popup-box">
+                    <a href="#" class="close-btn">&times;</a>
+                    <img src="image/qr.png" class="qr-img"><br>
+
+                    <h4>93294-90234</h4>
+
+                    <input text="subject" id="subject" value="Laboratory - Week 5" readonly><br><br>
+
+                    <label for="time">In:</label>
+                    <input type="time" id="in" value="07:00" readonly><br><br>
+
+                    <label for="time">Out:</label>
+                    <input type="time" id="out" value="10:00" readonly><br><br>
+
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" value="2025-03-11" readonly><br><br>
+
+                    <a href="#edit-popup" class="button">Edit</a>
+                </div>
+            </div>
+
+            <div id="edit-popup" class="popup-overlay">
+                <div class="popup-box">
+                    <a href="#" class="close-btn">&times;</a>
+                    <img src="image/qr.png" class="qr-img"><br>
+
+                    <h4>93294-90234</h4>
+
+                    <input type="text" id="subject" value="Laboratory - Week 5" readonly><br><br>
+
+                    <label for="in">In:</label>
+                    <input type="time" id="in" value="07:00"><br><br>
+
+                    <label for="out">Out:</label>
+                    <input type="time" id="out" value="10:00"><br><br>
+
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" value="2025-03-11"><br><br>
+
+                    <a href="#popup" class="button">Save</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sec">
+            <div>
+                <select id="sem" name="sem">
+                    <option value="All">All Students</option>
+                    <option value="present">Present</option>
+                    <option value="absent">Absent</option>
+                    <option value="late">Late</option>
+                </select>
+            </div>
+            
+            <div>
+                <input type="date" value="2025-03-11" readonly>
+            </div>
+
+            <div>
+                <input type="search" placeholder="Search">
+            </div>
+        </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Student Id</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>2425-0708</td>
+                <td>Choi Seungcheol</td>
+                <td>March 11, 2025</td>
+                <td>6:48 AM</td>
+                <td><p id="statusP">Present</p></td>
+            </tr>
+            <tr>
+                <td>2425-1004</td>
+                <td>Yoon Jeonghan</td>
+                <td>March 11, 2025</td>
+                <td>--:--</td>
+                <td><p id="statusA">Absent</p></td>
+            </tr>
+            <tr>
+                <td>2425-1123</td>
+                <td>Jeon Wonwoo</td>
+                <td>March 11, 2025</td>
+                <td>6:51 PM</td>
+                <td><p id="statusP">Present</p></td>
+            </tr>
+            <tr>
+                <td>2425-0508</td>
+                <td>Kim Mingyu</td>
+                <td>March 11, 2025</td>
+                <td>7:25 AM</td>
+                <td><p id="statusL">Late</p></td>
+            </tr>
+        </table>
+    </body>
+</html>

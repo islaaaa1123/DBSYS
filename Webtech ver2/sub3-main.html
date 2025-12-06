@@ -1,0 +1,183 @@
+<html>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendace</title>
+    <head>
+        <link rel="stylesheet" href="style.sub-main.css">
+    </head>
+    <body>
+        <div class="header">
+            <img src="image/mcclogo.png">
+            <h1>MABALACAT CITY COLLEGE</h1>
+        </div>
+
+        <div class="sidebar">
+            <div class="top">
+                <a href="homepage.html"  class="active">
+                    <img src="image/home.png" class="icons">
+                    Home
+                </a>
+                <a href="calendar.html">
+                    <img src="image/calendar.png" class="icons">
+                    Calendar
+                </a>
+                <a href="to-do-list.html">
+                    <img src="image/to-do-list.png" class="icons">
+                    To-do
+                </a>
+            </div>
+
+            <div class="bottom">
+                <div class="profile-wrapper">
+                    <a href="profile.html">
+                        <img src="image/pfp.png" class="pfp">
+                    </a>
+                    <div class="profile-dropdown">
+                        <a href="loginpage.html">Add another account</a>
+                        <a href="loginpage.html">Sign Out</a>
+                    </div>
+                </div>
+                <a href="settings.html">
+                    <img src="image/settings.png"  class="setting">
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <h5>
+                <a href="homepage.html">Home</a> ❯ <b>IT21WEBTECH BSIT-1C</b>
+            </h5>
+        </div>
+
+        <div class="sec">
+            <div>
+                <select id="sem" name="sem">
+                    <option value="all">All</option>
+                    <option value="sem2mid">Second Semestral Midterms</option>
+                    <option value="sem2fin">Second Semestral Finals</option>
+                </select>
+            </div>
+
+            <div>
+                <input type="date">
+            </div>
+
+            <div>
+                <input type="search" placeholder="Search">
+            </div>
+
+            <a href="#popup" class="open-btn">Create</a>
+
+            <div id="popup" class="popup-overlay">
+                <div class="popup-box">
+                    <a href="#" class="close-btn">&times;</a>
+                    <img src="image/qr.png" class="qr-img"><br>
+
+                    <h4>98597-98556</h4>
+
+                    <br>
+
+                    <input text="subject" id="subject" placeholder="Enter Attendace Title"><br>
+
+                    <br>
+                    
+                    <label for="time">In:</label>
+                    <input type="time" id="in"><br>
+
+                    <br>
+                    
+                    <label for="time">Out:</label>
+                    <input type="time" id="out"><br>
+
+                    <br>
+
+                    <label for="date">Date:</label>
+                    <input type="date" id="date"><br>
+
+                    <br>
+
+                    <button type="submit" class="button">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Attendace Title</th>
+                <th>Date</th>
+                <th>Time-In</th>
+                <th>Time-Out</th>
+                <th>Present</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><a href="sub3.html">Laboratory - Week 5</a></td>
+                <td>March 14, 2025</td>
+                <td>11:00 AM</td>
+                <td>2:00 PM</td>
+                <td>5</td>
+                <td><a href="#popup2" class="open-btn2"><img src="image/qr.png"></a></td>
+            </tr>
+            <tr>
+                <td>Lecture - Week 6</td>
+                <td>March 17, 2025</td>
+                <td>12:00 PM</td>
+                <td>2:00 PM</td>
+                <td>3</td>
+                <td><img src="image/qr.png"></td>
+            </tr>
+            <tr>
+                <td>Laboratory - Week 7</td>
+                <td>March 28, 2025</td>
+                <td>11:00 AM</td>
+                <td>2:00 PM</td>
+                <td>5</td>
+                <td><img src="image/qr.png"></td>
+            </tr>
+            <tr>
+                <td>Laboratory - Week 11</td>
+                <td>April 25, 2025</td>
+                <td>11:00 AM</td>
+                <td>2:00 PM</td>
+                <td>5</td>
+                <td><img src="image/qr.png"></td>
+            </tr>
+            <tr>
+                <td>Lecture - Week 12</td>
+                <td>April 28, 2025</td>
+                <td>12:00 PM</td>
+                <td>2:00 PM</td>
+                <td>4</td>
+                <td><img src="image/qr.png"></td>
+            </tr>
+            <tr>
+                <td>Laboratory - Week 12</td>
+                <td>May 2, 2025</td>
+                <td>11:00 AM</td>
+                <td>2:00 PM</td>
+                <td>5</td>
+                <td><img src="image/qr.png"></td>
+            </tr>
+        </table>
+
+            <div id="popup2" class="popup-overlay2">
+                <div class="popup-box2">
+                    <a href="#" class="close-btn2">&times;</a>
+                    <img src="image/qr.png" class="qr-img2"><br>
+
+                    <h4>96439-97653</h4>
+
+                    <input text="subject" id="subject" value="Laboratory - Week 5" readonly><br><br>
+
+                    <label for="time">In:</label>
+                    <input type="time" id="in" value="07:00" readonly><br><br>
+
+                    <label for="time">Out:</label>
+                    <input type="time" id="out" value="09:00" readonly><br><br>
+
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" value="2025-03-14" readonly><br>
+                </div>
+            </div>
+    </body>
+</html>
