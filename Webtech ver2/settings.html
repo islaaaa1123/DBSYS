@@ -1,75 +1,161 @@
 <html>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Settings</title>
-    <head>
-        <link rel="stylesheet" href="style.settings.css">
-    </head>
-    <body>
-        <div class="header">
-            <img src="image/mcclogo.png">
-            <h1>MABALACAT CITY COLLEGE</h1>
-        </div><div class="header">
-            <img src="image/mcclogo.png">
-            <h1>MABALACAT CITY COLLEGE</h1>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Settings</title>
+<head>
+    <link rel="stylesheet" href="style.settings.css">
+</head>
+<body>
 
-            <div class="profile-wrapper">
-                <a href="profile.html">
-                    <img src="image/pfp.png" class="pfp">
-                </a>
-                <div class="profile-text">
-                    <span>Jaynard (YOU)</span>
-                    <span>Teacher</span>
-                </div>
-                <div class="profile-dropdown">
-                    <a href="loginpage.html">Sign Out</a>
-                    <a href="loginpage.html">Add another account</a>
-                    <a href="settings.html">Settings</a>
-                </div>
+    <div id="savePopup">Saved Successfully!</div>
+
+    <div class="header">
+        <a href="homepage.html">
+            <img src="image/mcclogo.png">                
+        </a>
+        <a href="homepage.html">
+          <h1>MABALACAT CITY COLLEGE</h1>  
+        </a>
+
+        <div class="profile-wrapper">
+            <a href="profile.html">
+                <img src="image/pfp.png" class="pfp">
+            </a>
+            <div class="profile-text">
+                <span id="headerName">Yeongseok (YOU)</span>
+                <span>Teacher</span>
+            </div>
+            <div class="profile-dropdown">
+                <a href="loginpage.html">Sign Out</a>
+                <a href="loginpage.html">Add another account</a>
+                <a href="settings.html">Settings</a>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h5>Settings</h5>
+    </div>
+
+    <div class="container">
+        <div class="box" id="profile1">
+            <img src="image/pfp.png" class="pfp-icon">
+            <div class="profile-text">
+                <h1 id="profileDisplayName">Na Yeongseok</h1>
+                <p>Faculty</p>
             </div>
         </div>
 
-        <div>
-            <h5>Settings</h5>
-        </div>
+        <a class="button" onclick="saveProfile()">Save</a>
 
-        <div class="container">
-            <div class="box" id="profile1">
-                <img src="image/pfp.png" class="pfp-icon">
-                <div class="profile-text">
-                    <h1>Na Yeongseok</h1>
-                    <p>nayeongseok@gmail.com</p>
+        <div class="box" id="profile2">
+            <div class="field">
+                <label>First Name:</label>
+                <input id="firstName" type="text" value="Yeongseok">
+            </div>
+
+            <div class="field">
+                <label>Last Name:</label>
+                <input id="lastName" type="text" value="Na">
+            </div>
+
+            <div class="field full">
+                <label>Email:</label>
+                <input id="email" type="text" value="na.yeongseok@mcc.edu.ph">
+            </div>
+
+            <div class="field full">
+                <label>Password:</label>
+                <input type="password" id="password" value="nayeongseok">
+
+                <div class="password-toggle-wrapper">
+                    <label class="switch">
+                    <input type="checkbox" onclick="togglePassword()">
+                    <span class="slider"></span>
+                    </label>
+                    <span class="password-toggle-text">Show Password</span>
                 </div>
             </div>
 
-            <a href="profile.html" class="button">Save</a>
 
-            <div class="box" id="profile2">
-                <div class="field">
-                    <label>ID Number:</label>
-                    <input type="text" value="2023-9237">
-                </div>
-                <div class="field">
-                    <label>Faculty:</label>
-                    <input type="text" value="Institute of Business and Computing Education">
-                </div>
-                <div class="field">
-                    <label>Country:</label>
-                    <input type="text" value="Philippines">
-                </div>
-                <div class="field">
-                    <label>Phone:</label>
-                    <input type="text" value="09876543212">
-                </div>
-                <div class="field">
-                    <label>Gender:</label>
-                    <input type="text" value="Female">
-                </div>
-                <div class="field">
-                    <label>Birthday:</label>
-                    <input type="text" value="04-15-1976">
-                </div>
+            <div class="field full">
+                <label>Faculty:</label>
+                <select id="faculty">
+                    <option>Institute of Arts and Sciences</option>
+                    <option selected>Institute of Business and Computing Education</option>
+                    <option>Institute of Hospitality and Tourism Management</option>
+                    <option>Institute of Teacher Education</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Country:</label>
+                <input id="country" type="text" value="Philippines">
+            </div>
+
+            <div class="field full">
+                <label>Gender</label>
+                <select id="gender">
+                    <option>Male</option>
+                    <option selected>Female</option>
+                </select>
             </div>
         </div>
-    </body>
+    </div>
+
+<script>
+/* -------- SHOW PASSWORD -------- */
+function togglePass() {
+    const p = document.getElementById("password");
+    p.type = p.type === "password" ? "text" : "password";
+}
+
+/* -------- LOAD STORED DATA -------- */
+window.onload = function () {
+    if (localStorage.getItem("firstName")) {
+        document.getElementById("firstName").value = localStorage.getItem("firstName");
+        document.getElementById("lastName").value = localStorage.getItem("lastName");
+        document.getElementById("email").value = localStorage.getItem("email");
+        document.getElementById("password").value = localStorage.getItem("password");
+        document.getElementById("faculty").value = localStorage.getItem("faculty");
+        document.getElementById("country").value = localStorage.getItem("country");
+        document.getElementById("gender").value = localStorage.getItem("gender");
+
+        document.getElementById("profileDisplayName").innerText = 
+            localStorage.getItem("firstName") + " " + localStorage.getItem("lastName");
+
+        document.getElementById("headerName").innerText =
+            localStorage.getItem("firstName") + " (YOU)";
+    }
+};
+
+/* -------- SAVE AND UPDATE PROFILE -------- */
+function saveProfile() {
+    // Save to localStorage
+    localStorage.setItem("firstName", document.getElementById("firstName").value);
+    localStorage.setItem("lastName", document.getElementById("lastName").value);
+    localStorage.setItem("email", document.getElementById("email").value);
+    localStorage.setItem("password", document.getElementById("password").value);
+    localStorage.setItem("faculty", document.getElementById("faculty").value);
+    localStorage.setItem("country", document.getElementById("country").value);
+    localStorage.setItem("gender", document.getElementById("gender").value);
+
+    // Show popup
+    const popup = document.getElementById("savePopup");
+    popup.style.display = "block";
+
+    // Wait 1.5s then hide and redirect
+    setTimeout(() => {
+        popup.style.display = "none";
+        window.location.href = "profile.html";
+    }, 1500);
+}
+
+function togglePassword() {
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
 </html>

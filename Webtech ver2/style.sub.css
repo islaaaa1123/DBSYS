@@ -27,11 +27,12 @@ img {
   height: auto;
 }
 
-h1 {
+.header h1 {
   font-family: 'Times New Roman';
   font-size: 25px;
   font-weight: lighter;
   color: white;
+  text-decoration: underline #b82a2a;
 }
 
 /*profile hover pop-up*/

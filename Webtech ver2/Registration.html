@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration</title>
+<head>
+    <link rel="stylesheet" href="registration.css">
+</head>
+</head>
+<body>
+
+<div class="register-text">
+<h1 >Register Student</h1>
+</div>
+
+<form id="registrationForm">
+  <label>Name:</label>
+  <input type="text" name="name" required>
+  <label>Student ID:</label>
+  <input type="text" name="studentId" required>
+  <button type="submit" class="GenerateQR">Register & Generate QR</button>
+</form>
+
+<div class="popup-overlay" id="qrPopup">
+  <div class="popup-box">
+    <span class="close-btn" id="closePopup">&times;</span>
+    <h2>Student QR Code</h2>
+    <p id="studentInfo"></p>
+    <img id="qrImage" src="" alt="QR Code">
+  </div>
+</div>
+
+<script>
+const form = document.getElementById("registrationForm");
+const popup = document.getElementById("qrPopup");
+const closeBtn = document.getElementById("closePopup");
+const qrImg = document.getElementById("qrImage");
+const studentInfo = document.getElementById("studentInfo");
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const data = { name: formData.get("name"), studentId: formData.get("studentId") };
+
+  try {
+    const res = await fetch("/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      studentInfo.textContent = `${result.student.name} (${result.student.studentId})`;
+      qrImg.src = result.qrImage; // set QR image
+      popup.style.display = "flex"; // show popup
+      form.reset();
+    } else {
+      alert(result.error);
+    }
+  } catch(err) {
+    alert("Server error: " + err.message);
+  }
+});
+
+closeBtn.addEventListener("click", () => popup.style.display = "none");
+</script>
+
+</body>
+</html>

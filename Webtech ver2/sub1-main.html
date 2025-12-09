@@ -1,170 +1,205 @@
-<html>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Attendace</title>
-    <head>
-        <link rel="stylesheet" href="style.sub-main.css">
-    </head>
-    <body>
-        <div class="header">
-            <img src="image/mcclogo.png">
-            <h1>MABALACAT CITY COLLEGE</h1>
-        </div><div class="header">
-            <img src="image/mcclogo.png">
-            <h1>MABALACAT CITY COLLEGE</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <link rel="stylesheet" href="style.sub-main.css">
+</head>
+<body>
+<div class="header">
+    <a href="homepage.html"><img src="image/mcclogo.png"></a>
+    <a href="homepage.html"><h1>MABALACAT CITY COLLEGE</h1></a>
 
-            <div class="profile-wrapper">
-                <a href="profile.html">
-                    <img src="image/pfp.png" class="pfp">
-                </a>
-                <div class="profile-text">
-                    <span>Jaynard (YOU)</span>
-                    <span>Teacher</span>
-                </div>
-                <div class="profile-dropdown">
-                    <a href="loginpage.html">Sign Out</a>
-                    <a href="loginpage.html">Add another account</a>
-                    <a href="settings.html">Settings</a>
-                </div>
-            </div>
+    <div class="profile-wrapper">
+        <a href="profile.html"><img src="image/pfp.png" class="pfp"></a>
+        <div class="profile-text">
+            <span id="headerName">Yeongseok (YOU)</span>
+            <span>Teacher</span>
         </div>
-
-        <div>
-            <h5>
-                <a href="homepage.html">Home</a> ❯ <b>IT21WEBTECH BSIT-1A</b>
-            </h5>
+        <div class="profile-dropdown">
+            <a href="loginpage.html">Sign Out</a>
+            <a href="loginpage.html">Add another account</a>
+            <a href="settings.html">Settings</a>
         </div>
+    </div>
+</div>
 
-        <div class="sec">
-            <div>
-                <select id="sem" name="sem">
-                    <option value="all">All</option>
-                    <option value="sem2mid">Second Semestral Midterms</option>
-                    <option value="sem2fin">Second Semestral Finals</option>
-                </select>
-            </div>
+<div>
+    <h5>
+        <a href="homepage.html">Home</a> ❯ <b>IT21WEBTECH BSIT-1A</b>
+    </h5>
+</div>
 
-            <div>
-                <input type="date">
-            </div>
+<!-- FILTERS -->
+<div class="sec">
+    <div>
+        <select id="sem">
+            <option value="all">All</option>
+            <option value="midterms">Second Semestral Midterms</option>
+            <option value="finals">Second Semestral Finals</option>
+        </select>
+    </div>
 
-            <div>
-                <input type="search" placeholder="Search">
-            </div>
+    <div>
+        <!-- Month-Year Filter -->
+        <input type="month" id="filterDate">
+    </div>
 
-            <a href="#popup" class="open-btn">Create</a>
+    <div>
+        <input type="search" id="searchInput" placeholder="Search">
+    </div>
 
-            <div id="popup" class="popup-overlay">
-                <div class="popup-box">
-                    <a href="#" class="close-btn">&times;</a>
-                    <img src="image/qr.png" class="qr-img"><br>
+    <a href="#popup" class="open-btn">Create</a>
 
-                    <h4>98597-98556</h4>
+    <!-- CREATE POPUP -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-box">
+            <a href="#" class="close-btn">&times;</a>
 
-                    <br>
+            <br>
+            <input id="subject" placeholder="Enter Attendance Title"><br><br>
 
-                    <input text="subject" id="subject" placeholder="Enter Attendace Title"><br>
+            <label>In:</label>
+            <input type="time" id="in"><br><br>
 
-                    <br>
-                    
-                    <label for="time">In:</label>
-                    <input type="time" id="in"><br>
+            <label>Out:</label>
+            <input type="time" id="out"><br><br>
 
-                    <br>
-                    
-                    <label for="time">Out:</label>
-                    <input type="time" id="out"><br>
+            <label>Date:</label>
+            <input type="date" id="date"><br><br>
 
-                    <br>
-
-                    <label for="date">Date:</label>
-                    <input type="date" id="date"><br>
-
-                    <br>
-
-                    <button type="submit" class="button">Save</button>
-                </div>
-            </div>
+            <button id="saveBtn" class="button">Save</button>
         </div>
+    </div>
+</div>
 
-        <table>
-            <tr>
-                <th>Attendace Title</th>
-                <th>Date</th>
-                <th>Time-In</th>
-                <th>Time-Out</th>
-                <th>Present</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td><a href="sub1.html">Laboratory - Week 5</a></td>
-                <td>March 11, 2025</td>
-                <td>7:00 AM</td>
-                <td>10:00 AM</td>
-                <td>3</td>
-                <td><a href="#popup2" class="open-btn2"><img src="image/qr.png"></a></td>
-            </tr>
-            <tr>
-                <td>Lecture - Week 6</td>
-                <td>March 17, 2025</td>
-                <td>7:00 AM</td>
-                <td>9:00 AM</td>
-                <td>4</td>
-                <td><img src="image/qr.png"></td>
-            </tr>
-            <tr>
-                <td>Laboratory - Week 7</td>
-                <td>March 25, 2025</td>
-                <td>7:00 AM</td>
-                <td>10:00 AM</td>
-                <td>4</td>
-                <td><img src="image/qr.png"></td>
-            </tr>
-            <tr>
-                <td>Laboratory - Week 11</td>
-                <td>April 22, 2025</td>
-                <td>7:00 AM</td>
-                <td>10:00 AM</td>
-                <td>4</td>
-                <td><img src="image/qr.png"></td>
-            </tr>
-            <tr>
-                <td>Lecture - Week 12</td>
-                <td>April 28, 2025</td>
-                <td>7:00 AM</td>
-                <td>9:00 AM</td>
-                <td>2</td>
-                <td><img src="image/qr.png"></td>
-            </tr>
-            <tr>
-                <td>Laboratory - Week 12</td>
-                <td>April 29, 2025</td>
-                <td>7:00 AM</td>
-                <td>10:00 AM</td>
-                <td>3</td>
-                <td><img src="image/qr.png"></td>
-            </tr>
-        </table>
+<!-- TABLE -->
+<table id="attendanceTable">
+    <thead>
+        <tr>
+            <th>Attendance Title</th>
+            <th>Date</th>
+            <th>Time-In</th>
+            <th>Time-Out</th>
+            <th>Present</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-            <div id="popup2" class="popup-overlay2">
-                <div class="popup-box2">
-                    <a href="#" class="close-btn2">&times;</a>
-                    <img src="image/qr.png" class="qr-img2"><br>
+<script>
+// -----------------------------
+// LOCAL STORAGE HANDLING
+// -----------------------------
+let attendanceList = JSON.parse(localStorage.getItem("attendanceList")) || [];
 
-                    <h4>93294-90234</h4>
+// Get attendance counts from sub1.html
+let studentStatus = JSON.parse(localStorage.getItem("studentStatus")) || {};
 
-                    <input text="subject" id="subject" value="Laboratory - Week 5" readonly><br><br>
+// -----------------------------
+// ADD NEW ATTENDANCE
+// -----------------------------
+document.getElementById("saveBtn").addEventListener("click", () => {
+    const title = document.getElementById("subject").value;
+    const timeIn = document.getElementById("in").value;
+    const timeOut = document.getElementById("out").value;
+    const date = document.getElementById("date").value;
 
-                    <label for="time">In:</label>
-                    <input type="time" id="in" value="07:00" readonly><br><br>
+    if (!title || !timeIn || !timeOut || !date) {
+        alert("Complete all fields.");
+        return;
+    }
 
-                    <label for="time">Out:</label>
-                    <input type="time" id="out" value="10:00" readonly><br><br>
+    const qrId = Math.floor(Math.random() * 90000 + 10000);
 
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" value="2025-03-11" readonly><br>
-                </div>
-            </div>
+    const newAttendance = {
+        title,
+        timeIn,
+        timeOut,
+        date,
+        qr: qrId
+    };
 
-    </body>
+    attendanceList.push(newAttendance);
+    localStorage.setItem("attendanceList", JSON.stringify(attendanceList));
+    renderTable();
+
+    // Clear input fields
+    document.getElementById("subject").value = "";
+    document.getElementById("in").value = "";
+    document.getElementById("out").value = "";
+    document.getElementById("date").value = "";
+
+    window.location.href = "#"; // close popup
+});
+
+// -----------------------------
+// RENDER TABLE
+// -----------------------------
+function renderTable() {
+    const tbody = document.querySelector("#attendanceTable tbody");
+    tbody.innerHTML = "";
+
+    let filtered = [...attendanceList];
+
+    // FILTER BY SEMESTER
+    const sem = document.getElementById("sem").value;
+    filtered = filtered.filter(item => {
+        const d = new Date(item.date);
+        if (sem === "midterms") return d >= new Date("2025-02-02") && d <= new Date("2025-03-28");
+        if (sem === "finals") return d >= new Date("2025-04-05") && d <= new Date("2025-06-06");
+        return true;
+    });
+
+    // SEARCH FILTER
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    filtered = filtered.filter(item => item.title.toLowerCase().includes(search));
+
+    // MONTH-YEAR FILTER
+    const filterDate = document.getElementById("filterDate").value; // format: YYYY-MM
+    if (filterDate) {
+        filtered = filtered.filter(item => {
+            const itemMonthYear = item.date.slice(0,7); // get YYYY-MM from date
+            return itemMonthYear === filterDate;
+        });
+    }
+
+    // SORT BY DATE DESCENDING
+    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // RENDER ROWS
+    filtered.forEach(item => {
+        // Get present count from studentStatus (sub1.html)
+        const counts = studentStatus[item.qr] || { present: 0 };
+        const presentCount = counts.present || 0;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><a href="sub1.html?qr=${item.qr}">${item.title}</a></td>
+            <td>${new Date(item.date).toLocaleDateString()}</td>
+            <td>${item.timeIn}</td>
+            <td>${item.timeOut}</td>
+            <td>${presentCount}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+window.onload = () => {
+    if (localStorage.getItem("firstName")) {
+        document.getElementById("headerName").innerText =
+            localStorage.getItem("firstName") + " (YOU)";
+        }
+    };
+
+// FILTER LISTENERS
+document.getElementById("sem").addEventListener("change", renderTable);
+document.getElementById("searchInput").addEventListener("input", renderTable);
+document.getElementById("filterDate").addEventListener("change", renderTable);
+
+// INITIAL RENDER
+renderTable();
+</script>
+</body>
 </html>

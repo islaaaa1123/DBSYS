@@ -1,168 +1,260 @@
 <html>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Attendace</title>
-    <head>
-        <link rel="stylesheet" href="style.sub.css">
-    </head>
-    <body>
-        <div class="header">
-            <img src="image/mcclogo.png">
-            <h1>MABALACAT CITY COLLEGE</h1>
-        </div><div class="header">
-            <img src="image/mcclogo.png">
-            <h1>MABALACAT CITY COLLEGE</h1>
+    <title>Attendance</title>
+    <link rel="stylesheet" href="style.sub.css">
+</head>
+<body>
+<div class="header">
+    <a href="homepage.html"><img src="image/mcclogo.png"></a>
+    <a href="homepage.html"><h1>MABALACAT CITY COLLEGE</h1></a>
 
-            <div class="profile-wrapper">
-                <a href="profile.html">
-                    <img src="image/pfp.png" class="pfp">
-                </a>
-                <div class="profile-text">
-                    <span>Jaynard (YOU)</span>
-                    <span>Teacher</span>
-                </div>
-                <div class="profile-dropdown">
-                    <a href="loginpage.html">Sign Out</a>
-                    <a href="loginpage.html">Add another account</a>
-                    <a href="settings.html">Settings</a>
-                </div>
-            </div>
+    <div class="profile-wrapper">
+        <a href="profile.html"><img src="image/pfp.png" class="pfp"></a>
+        <div class="profile-text">
+            <span id="headerName">Yeongseok (YOU)</span>
+            <span>Teacher</span>
         </div>
-        
-        <div>
-            <h5>
-                <a href="homepage.html">Home</a> ❯ <a href="sub1-main.html">IT21WEBTECH BSIT-1A</a> ❯ <b>Laboratory - Week 5</b>
-            </h5>
+        <div class="profile-dropdown">
+            <a href="loginpage.html">Sign Out</a>
+            <a href="loginpage.html">Add another account</a>
+            <a href="settings.html">Settings</a>
         </div>
+    </div>
+</div>
 
-        <div class="container">
-            <div class="box" id="present">
-                <img src="image/attendance.jpeg" class="box-img">
-                <div class="info">
-                    <div class="count">3</div>
-                    <div class="label">Present</div>
-                </div>
-            </div>
+<h5>
+    <a href="homepage.html">Home</a> ❯ <a href="sub1-main.html">IT21WEBTECH BSIT-1A</a> ❯ <b>Laboratory - Week 5</b>
+</h5>
 
-            <div class="box" id="absent">
-                <img src="image/absent.jpeg" class="box-img">
-                <div class="info">
-                    <div class="count">1</div>
-                    <div class="label">Absent</div>
-                </div>
-            </div>
-
-            <div class="box" id="late">
-                <img src="image/late.jpeg" class="box-img">
-                <div class="info">
-                    <div class="count">1</div>
-                    <div class="label">Late</div>
-                </div>
-            </div>
-
-            <a href="#popup" class="open-btn"><img src="image/qr.png"></a>
-
-            <div id="popup" class="popup-overlay">
-                <div class="popup-box">
-                    <a href="#" class="close-btn">&times;</a>
-                    <img src="image/qr.png" class="qr-img"><br>
-
-                    <h4>93294-90234</h4>
-
-                    <input text="subject" id="subject" value="Laboratory - Week 5" readonly><br><br>
-
-                    <label for="time">In:</label>
-                    <input type="time" id="in" value="07:00" readonly><br><br>
-
-                    <label for="time">Out:</label>
-                    <input type="time" id="out" value="10:00" readonly><br><br>
-
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" value="2025-03-11" readonly><br><br>
-
-                    <a href="#edit-popup" class="button">Edit</a>
-                </div>
-            </div>
-
-            <div id="edit-popup" class="popup-overlay">
-                <div class="popup-box">
-                    <a href="#" class="close-btn">&times;</a>
-                    <img src="image/qr.png" class="qr-img"><br>
-
-                    <h4>93294-90234</h4>
-
-                    <input type="text" id="subject" value="Laboratory - Week 5" readonly><br><br>
-
-                    <label for="in">In:</label>
-                    <input type="time" id="in" value="07:00"><br><br>
-
-                    <label for="out">Out:</label>
-                    <input type="time" id="out" value="10:00"><br><br>
-
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" value="2025-03-11"><br><br>
-
-                    <a href="#popup" class="button">Save</a>
-                </div>
-            </div>
+<div class="container">
+    <div class="box" id="present">
+        <img src="image/attendance.jpeg" class="box-img">
+        <div class="info">
+            <div class="count" id="presentCount">0</div>
+            <div class="label">Present</div>
         </div>
+    </div>
 
-        <div class="sec">
-            <div>
-                <select id="sem" name="sem">
-                    <option value="All">All Students</option>
-                    <option value="present">Present</option>
-                    <option value="absent">Absent</option>
-                    <option value="late">Late</option>
-                </select>
-            </div>
-            
-            <div>
-                <input type="date" value="2025-03-11" readonly>
-            </div>
-
-            <div>
-                <input type="search" placeholder="Search">
-            </div>
+    <div class="box" id="absent">
+        <img src="image/absent.jpeg" class="box-img">
+        <div class="info">
+            <div class="count" id="absentCount">0</div>
+            <div class="label">Absent</div>
         </div>
-        </div>
+    </div>
 
-        <table>
-            <tr>
-                <th>Student Id</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>2425-0708</td>
-                <td>Choi Seungcheol</td>
-                <td>March 11, 2025</td>
-                <td>6:48 AM</td>
-                <td><p id="statusP">Present</p></td>
-            </tr>
-            <tr>
-                <td>2425-1004</td>
-                <td>Yoon Jeonghan</td>
-                <td>March 11, 2025</td>
-                <td>--:--</td>
-                <td><p id="statusA">Absent</p></td>
-            </tr>
-            <tr>
-                <td>2425-1123</td>
-                <td>Jeon Wonwoo</td>
-                <td>March 11, 2025</td>
-                <td>6:51 PM</td>
-                <td><p id="statusP">Present</p></td>
-            </tr>
-            <tr>
-                <td>2425-0508</td>
-                <td>Kim Mingyu</td>
-                <td>March 11, 2025</td>
-                <td>7:25 AM</td>
-                <td><p id="statusL">Late</p></td>
-            </tr>
-        </table>
-    </body>
+    <div class="box" id="late">
+        <img src="image/late.jpeg" class="box-img">
+        <div class="info">
+            <div class="count" id="lateCount">0</div>
+            <div class="label">Late</div>
+        </div>
+    </div>
+
+    <a href="#popup" class="open-btn"><img src="image/qr.png"></a>
+
+    <!-- QR POPUP -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-box">
+            <a href="#" class="close-btn">&times;</a>
+            <img src="image/qr.png" class="qr-img"><br>
+            <h4 id="qrCode">93294-90234</h4>
+
+            <input text="subject" id="subject" value="Laboratory - Week 5" readonly><br><br>
+
+            <label for="time">In:</label>
+            <input type="time" id="in" value="07:00" readonly><br><br>
+
+            <label for="time">Out:</label>
+            <input type="time" id="out" value="10:00" readonly><br><br>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" value="2025-03-11" readonly><br><br>
+
+            <a href="#edit-popup" class="button">Edit</a>
+        </div>
+    </div>
+
+    <!-- EDIT POPUP -->
+    <div id="edit-popup" class="popup-overlay">
+        <div class="popup-box">
+            <a href="#" class="close-btn">&times;</a>
+            <img src="image/qr.png" class="qr-img"><br>
+            <h4 id="qrCodeEdit">93294-90234</h4>
+
+            <input type="text" id="subjectEdit" value="Laboratory - Week 5"><br><br>
+
+            <label for="inEdit">In:</label>
+            <input type="time" id="inEdit" value="07:00"><br><br>
+
+            <label for="outEdit">Out:</label>
+            <input type="time" id="outEdit" value="10:00"><br><br>
+
+            <label for="dateEdit">Date:</label>
+            <input type="date" id="dateEdit" value="2025-03-11"><br><br>
+
+            <a href="#popup" class="button">Save</a>
+        </div>
+    </div>
+</div>
+
+<div class="sec">
+    <div>
+        <select id="statusFilter" name="statusFilter">
+            <option value="all">All Students</option>
+            <option value="present">Present</option>
+            <option value="absent">Absent</option>
+            <option value="late">Late</option>
+        </select>
+    </div>
+
+    <div>
+        <input type="date" value="2025-03-11" readonly>
+    </div>
+
+    <div>
+        <input type="search" id="searchInput" placeholder="Search">
+    </div>
+</div>
+
+<table id="studentTable">
+    <thead>
+        <tr>
+            <th>Student Id</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2425-0708</td>
+            <td>Choi Seungcheol</td>
+            <td>March 11, 2025</td>
+            <td>6:48 AM</td>
+            <td class="status"><p id="statusP">Present</p></td>
+        </tr>
+        <tr>
+            <td>2425-1004</td>
+            <td>Yoon Jeonghan</td>
+            <td>March 11, 2025</td>
+            <td>--:--</td>
+            <td class="status"><p id="statusA">Absent</p></td>
+        </tr>
+        <tr>
+            <td>2425-1123</td>
+            <td>Jeon Wonwoo</td>
+            <td>March 11, 2025</td>
+            <td>6:51 PM</td>
+            <td class="status"><p id="statusP">Present</p></td>
+        </tr>
+        <tr>
+            <td>2425-0508</td>
+            <td>Kim Mingyu</td>
+            <td>March 11, 2025</td>
+            <td>7:25 AM</td>
+            <td class="status"><p id="statusL">Late</p></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+// -----------------------------
+// Dynamic Attendance Title and Date from sub1-main.html
+// -----------------------------
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+function setAttendanceDetails() {
+    const qrId = getQueryParam("qr"); // get qr ID from URL
+    if (!qrId) return;
+
+    // Get attendance list from localStorage
+    const attendanceList = JSON.parse(localStorage.getItem("attendanceList")) || [];
+    const attendance = attendanceList.find(a => a.qr == qrId);
+    if (!attendance) return;
+
+    // Set h5 title dynamically
+    const h5 = document.querySelector("h5");
+    h5.innerHTML = `<a href="homepage.html">Home</a> ❯ <a href="sub1-main.html">IT21WEBTECH BSIT-1A</a> ❯ <b>${attendance.title}</b>`;
+
+    // Set subject in popups
+    document.getElementById("subject").value = attendance.title;
+    document.getElementById("subjectEdit").value = attendance.title;
+
+    // Set QR code number dynamically
+    document.getElementById("qrCode").textContent = attendance.qr;
+    document.getElementById("qrCodeEdit").textContent = attendance.qr;
+
+    // Set date and times in QR popup dynamically
+    document.getElementById("date").value = attendance.date;
+    document.getElementById("dateEdit").value = attendance.date;
+    document.getElementById("in").value = attendance.timeIn;
+    document.getElementById("inEdit").value = attendance.timeIn;
+    document.getElementById("out").value = attendance.timeOut;
+    document.getElementById("outEdit").value = attendance.timeOut;
+
+    // Set the date input in the filter section dynamically
+    const filterDateInput = document.querySelector('.sec input[type="date"]');
+    if(filterDateInput) filterDateInput.value = attendance.date;
+}
+
+// Count total Present, Absent, Late
+function updateCounts() {
+    const rows = document.querySelectorAll("#studentTable tbody tr");
+    let counts = {present:0, absent:0, late:0};
+
+    rows.forEach(row => {
+        const status = row.querySelector(".status").textContent.toLowerCase();
+        if(counts[status] !== undefined) counts[status]++;
+    });
+
+    document.getElementById("presentCount").textContent = counts.present;
+    document.getElementById("absentCount").textContent = counts.absent;
+    document.getElementById("lateCount").textContent = counts.late;
+
+    // Save to localStorage for sub1-main.html
+    const qrId = getQueryParam("qr") || 93294; // fallback qrId
+    let studentStatus = JSON.parse(localStorage.getItem("studentStatus")) || {};
+    studentStatus[qrId] = counts;
+    localStorage.setItem("studentStatus", JSON.stringify(studentStatus));
+}
+
+// Search Function
+document.getElementById("searchInput").addEventListener("input", function() {
+    const searchValue = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#studentTable tbody tr");
+    rows.forEach(row => {
+        const name = row.cells[1].textContent.toLowerCase();
+        row.style.display = name.includes(searchValue) ? "" : "none";
+    });
+});
+
+// Filter by status
+document.getElementById("statusFilter").addEventListener("change", function() {
+    const filter = this.value;
+    const rows = document.querySelectorAll("#studentTable tbody tr");
+    rows.forEach(row => {
+        const status = row.querySelector(".status").textContent.toLowerCase();
+        row.style.display = (filter === "all" || status === filter) ? "" : "none";
+    });
+});
+
+// Initialize page
+setAttendanceDetails();
+updateCounts();
+
+window.onload = () => {
+    if (localStorage.getItem("firstName")) {
+        document.getElementById("headerName").innerText =
+            localStorage.getItem("firstName") + " (YOU)";
+        }
+    };
+</script>
+</body>
 </html>
